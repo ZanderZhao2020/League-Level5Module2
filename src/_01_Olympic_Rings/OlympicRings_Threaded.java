@@ -1,23 +1,30 @@
 package _01_Olympic_Rings;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.jointheleague.graphical.robot.Robot;
 
 public class OlympicRings_Threaded {
 	// Make A Program that uses Threads and robots to draw the Olympic rings. One robot should draw one ring simultaneously with the other 4 robots.
 	static void DrawCircle(int Scale, Robot Rob) {
-		byte Degrees[] = new byte[360];
+		Byte Degrees[] = new Byte[360];
 		for (short Degree = 0; Degree < 360; Degree++) {
-			if (Math.random() * 360 > 131) {
-				Degrees[Degree] = 2;
-			} else {
+			if (Degree > 130) {
 				Degrees[Degree] = 1;
+			} else {
+				Degrees[Degree] = 2;
 			}
 		}
+		ArrayList<Byte> DegreesList = new ArrayList<Byte>(Arrays.asList(Degrees));
+		Collections.shuffle(DegreesList);
 		Rob.penDown();
-		for (short Draw = 0; Draw < 360; Draw++) {
+		DegreesList.forEach((Dist) -> {
 			Rob.turn(1);
-			Rob.move(Degrees[Draw]);
-		}
+			Rob.move((int) Dist);
+		});
 		Rob.hide();
 	}
 	public static void main(String[] args) {
